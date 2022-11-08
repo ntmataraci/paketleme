@@ -97,7 +97,7 @@ if(window.localStorage.getItem("barcodeSettings")){
            
             <div> {language === "tr" ? "Çerçeve Genişliği :" : "Border Width:"}<input type="number"  required={true} min={250}  value={genislikHandler} onChange={(e)=>setGenislikHandler(+e.target.value)} /></div>
             <div> {language === "tr" ? "Barkod Yüksekliği :" : "Barcode Height:"}<input type="number"  required={true} min={20} value={barkodYukseklikHandler} onChange={(e)=>setBarkodYukseklikHandler(+e.target.value)} /></div>
-            <div> {language === "tr" ? "Barkod Darlık :" : "Barcode Chr. width:"}:<input type="number"  required={true} min={1} max={5 }value={barkodW} onChange={(e)=>setBarkodW(+e.target.value)} /></div>
+            <div> {language === "tr" ? "Barkod Darlık :" : "Barcode Chr. width:"}:<input type="number"  step="any"  required={true} min={1} max={5 }value={barkodW} onChange={(e)=>setBarkodW(+e.target.value)} /></div>
             <div> {language === "tr" ? "Döndür :" : "Rotate:"}:<input type="checkbox"  checked={rotateMe} onChange={(e)=>setRotateMe(!rotateMe)} /></div>
             <div> {language === "tr" ? "Üst Kenar Boşuğu :" : "Margin Top:"}:<input type="number"  required={true} min={0} max={450} value={ustKenar} onChange={(e)=>setUstKenar(+e.target.value)} /></div>
             <div> {language === "tr" ? "Barkod Boşluğu :" : "Barcode Gap:"}:<input type="number"  required={true} min={0} max={450} value={barkodBosluk} onChange={(e)=>setBarkodBosluk(+e.target.value)} /></div>
