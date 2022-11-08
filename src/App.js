@@ -116,9 +116,9 @@ if(window.localStorage.getItem("barcodeSettings")){
             {language === "tr" ? "Geri:" : "Back:"}
           </button>
           </div>
-          <div style={{marginTop:rotateMe?genislikHandler/4+"px":"2px"}}>
+          <div style={{marginTop:rotateMe?genislikHandler/4+barkodYukseklikHandler+"px":"2px"}}>
           {partList.map((item, idx) => (
-            <div key={idx} style={{transform:rotateMe?"rotate(90deg)":"rotate(0deg)",marginBottom:rotateMe?genislikHandler/2+"px":"0.5rem"}}>
+            <div key={idx} style={{transform:rotateMe?"rotate(90deg)":"rotate(0deg)",marginBottom:rotateMe?genislikHandler/2+1.5*barkodYukseklikHandler+"px":"0.5rem"}}>
               <Layout
                 kutuNo={item.kutuNo}
                 urun={item.urun}
