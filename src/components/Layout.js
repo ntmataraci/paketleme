@@ -3,7 +3,7 @@ import BarcodeStructure from "./BarcodeStructure";
 const Layout= ({kutuNo,urun,desc,adet,firma,tarih,toplam,dil,genislik,barkodYukseklik,barkodW}) => {
     return(
 <div style={{border:"1px solid black",maxWidth:genislik+"px",margin:"auto",padding:"0.5rem"}}>
-<div style={{ display: "flex",gap:"3rem",marginBottom:"2rem" }}>
+<div style={{ display: "flex",gap:"1.5rem",marginBottom:"2rem" }}>
   <BarcodeStructure
     header={dil==="tr"?"ÜRETİCİ/TEDARİKÇİ":"COMPANY:"}
     code={firma}
