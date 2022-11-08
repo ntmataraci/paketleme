@@ -15,6 +15,7 @@ const firmaAd=useRef()
   const [barkodYukseklikHandler,setBarkodYukseklikHandler]=useState()
   const [urunTanimiHandler,setUrunTanimiHandler]=useState()
   const [barkodW,setBarkodW]=useState()
+  const [rotateMe,setRotateMe]=useState()
 
   const hesapla = () => {
     const koliSayisi = Math.floor(
@@ -44,7 +45,8 @@ const firmaAd=useRef()
       language:language,
       genislik:genislikHandler,
       barkodYukseklik:barkodYukseklikHandler,
-      barkodW:barkodW
+      barkodW:barkodW,
+      rotateMe:rotateMe
     })
     )
     setPrint(true);
@@ -57,7 +59,8 @@ if(window.localStorage.getItem("barcodeSettings")){
   setLanguage(settings.language)
   setGenislikHandler(+settings.genislik)
   setBarkodYukseklikHandler(+settings.barkodYukseklik)
-  setBarkodW(barkodW)
+  setBarkodW(+settings.barkodW)
+  setRotateMe(Boolean(settings.rotateMe))
 }
   }, [print]);
 
@@ -90,6 +93,7 @@ if(window.localStorage.getItem("barcodeSettings")){
             <div> {language === "tr" ? "Çerçeve Genişliği :" : "Border Width:"}<input type="number"  required={true} min={250}  value={genislikHandler} onChange={(e)=>setGenislikHandler(+e.target.value)} /></div>
             <div> {language === "tr" ? "Barkod Yüksekliği :" : "Barcode Height:"}<input type="number"  required={true} min={20} value={barkodYukseklikHandler} onChange={(e)=>setBarkodYukseklikHandler(+e.target.value)} /></div>
             <div> {language === "tr" ? "Barkod Darlık :" : "Barcode Chr. width:"}:<input type="number"  required={true} min={1} max={5 }value={barkodW} onChange={(e)=>setBarkodW(+e.target.value)} /></div>
+            <div> {language === "tr" ? "Döndür :" : "Rotate:"}:<input type="checkbox"  checked={rotateMe} onChange={(e)=>setRotateMe(!rotateMe)} /></div>
           </div>
           {language === "tr" ? "Firma:" : "Company:"}
           <input type="text"   required={true} ref={firmaAd} />
@@ -112,8 +116,9 @@ if(window.localStorage.getItem("barcodeSettings")){
             {language === "tr" ? "Geri:" : "Back:"}
           </button>
           </div>
+          <div style={{marginTop:rotateMe?genislikHandler/4+"px":"2px"}}>
           {partList.map((item, idx) => (
-            <div key={idx} style={{marginBottom:"0.5rem"}}>
+            <div key={idx} style={{transform:rotateMe?"rotate(90deg)":"rotate(0deg)",marginBottom:rotateMe?genislikHandler/2+"px":"0.5rem"}}>
               <Layout
                 kutuNo={item.kutuNo}
                 urun={item.urun}
@@ -129,6 +134,7 @@ if(window.localStorage.getItem("barcodeSettings")){
               />
             </div>
           ))}
+          </div>
         </>
       )}
     </>
