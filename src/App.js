@@ -16,7 +16,7 @@ const firmaAd=useRef()
   const [urunTanimiHandler,setUrunTanimiHandler]=useState()
   const [barkodW,setBarkodW]=useState()
   const [rotateMe,setRotateMe]=useState()
-
+  const [ustKenar,setUstKenar]=useState(0)
   const hesapla = () => {
     const koliSayisi = Math.floor(
      toplamAdetHandler / koliAdet.current.value
@@ -46,7 +46,8 @@ const firmaAd=useRef()
       genislik:genislikHandler,
       barkodYukseklik:barkodYukseklikHandler,
       barkodW:barkodW,
-      rotateMe:rotateMe
+      rotateMe:rotateMe,
+      ustkenar:ustKenar
     })
     )
     setPrint(true);
@@ -61,6 +62,7 @@ if(window.localStorage.getItem("barcodeSettings")){
   setBarkodYukseklikHandler(+settings.barkodYukseklik)
   setBarkodW(+settings.barkodW)
   setRotateMe(Boolean(settings.rotateMe))
+  setUstKenar(+settings.ustkenar)
 }
   }, [print]);
 
@@ -94,6 +96,7 @@ if(window.localStorage.getItem("barcodeSettings")){
             <div> {language === "tr" ? "Barkod Yüksekliği :" : "Barcode Height:"}<input type="number"  required={true} min={20} value={barkodYukseklikHandler} onChange={(e)=>setBarkodYukseklikHandler(+e.target.value)} /></div>
             <div> {language === "tr" ? "Barkod Darlık :" : "Barcode Chr. width:"}:<input type="number"  required={true} min={1} max={5 }value={barkodW} onChange={(e)=>setBarkodW(+e.target.value)} /></div>
             <div> {language === "tr" ? "Döndür :" : "Rotate:"}:<input type="checkbox"  checked={rotateMe} onChange={(e)=>setRotateMe(!rotateMe)} /></div>
+            <div> {language === "tr" ? "Üst Kenar Boşuğu :" : "Margin Top:"}:<input type="number"  required={true} min={0} max={450} value={ustKenar} onChange={(e)=>setUstKenar(+e.target.value)} /></div>
           </div>
           {language === "tr" ? "Firma:" : "Company:"}
           <input type="text"   required={true} ref={firmaAd} />
@@ -116,7 +119,7 @@ if(window.localStorage.getItem("barcodeSettings")){
             {language === "tr" ? "Geri:" : "Back:"}
           </button>
           </div>
-          <div style={{marginTop:rotateMe?genislikHandler/4+barkodYukseklikHandler+"px":"2px"}}>
+          <div style={{marginTop:ustKenar+"px"}}>
           {partList.map((item, idx) => (
             <div key={idx} style={{transform:rotateMe?"rotate(90deg)":"rotate(0deg)",marginBottom:rotateMe?genislikHandler/2+1.5*barkodYukseklikHandler+"px":"0.5rem"}}>
               <Layout
