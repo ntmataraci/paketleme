@@ -17,6 +17,7 @@ const firmaAd=useRef()
   const [barkodW,setBarkodW]=useState()
   const [rotateMe,setRotateMe]=useState()
   const [ustKenar,setUstKenar]=useState(0)
+  const [barkodBosluk,setBarkodBosluk]=useState(0)
   const hesapla = () => {
     const koliSayisi = Math.floor(
      toplamAdetHandler / koliAdet.current.value
@@ -47,7 +48,8 @@ const firmaAd=useRef()
       barkodYukseklik:barkodYukseklikHandler,
       barkodW:barkodW,
       rotateMe:rotateMe,
-      ustkenar:ustKenar
+      ustkenar:ustKenar,
+      barkodBosluk:barkodBosluk
     })
     )
     setPrint(true);
@@ -63,6 +65,7 @@ if(window.localStorage.getItem("barcodeSettings")){
   setBarkodW(+settings.barkodW)
   setRotateMe(Boolean(settings.rotateMe))
   setUstKenar(+settings.ustkenar)
+  setBarkodBosluk(+settings.barkodBosluk)
 }
   }, [print]);
 
@@ -73,8 +76,8 @@ if(window.localStorage.getItem("barcodeSettings")){
     <>
       {!print && (
            <form style={{ padding: "1rem",display:"flex",flexDirection:"column",gap:"0.2rem" }} onSubmit={hesapla}>
-          <div style={{ display: "flex", gap: "1rem", cursor: "pointer" }}>
-            Dil :
+          <div style={{ display: "flex", gap: "0.5rem", cursor: "pointer",flexWrap:"wrap" }}>
+            Dil:
             <div
               onClick={() => setLanguage("tr")}
               style={{
@@ -97,6 +100,7 @@ if(window.localStorage.getItem("barcodeSettings")){
             <div> {language === "tr" ? "Barkod Darlık :" : "Barcode Chr. width:"}:<input type="number"  required={true} min={1} max={5 }value={barkodW} onChange={(e)=>setBarkodW(+e.target.value)} /></div>
             <div> {language === "tr" ? "Döndür :" : "Rotate:"}:<input type="checkbox"  checked={rotateMe} onChange={(e)=>setRotateMe(!rotateMe)} /></div>
             <div> {language === "tr" ? "Üst Kenar Boşuğu :" : "Margin Top:"}:<input type="number"  required={true} min={0} max={450} value={ustKenar} onChange={(e)=>setUstKenar(+e.target.value)} /></div>
+            <div> {language === "tr" ? "Barkod Boşluğu :" : "Barcode Gap:"}:<input type="number"  required={true} min={0} max={450} value={barkodBosluk} onChange={(e)=>setBarkodBosluk(+e.target.value)} /></div>
           </div>
           {language === "tr" ? "Firma:" : "Company:"}
           <input type="text"   required={true} ref={firmaAd} />
@@ -121,7 +125,7 @@ if(window.localStorage.getItem("barcodeSettings")){
           </div>
           <div style={{marginTop:ustKenar+"px"}}>
           {partList.map((item, idx) => (
-            <div key={idx} style={{transform:rotateMe?"rotate(90deg)":"rotate(0deg)",marginBottom:rotateMe?genislikHandler/2+1.5*barkodYukseklikHandler+"px":"0.5rem"}}>
+            <div key={idx} style={{transform:rotateMe?"rotate(90deg)":"rotate(0deg)",marginBottom:barkodBosluk+"px"}}>
               <Layout
                 kutuNo={item.kutuNo}
                 urun={item.urun}
